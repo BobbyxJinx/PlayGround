@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#07141b" />
   <title>Frontier — Outpost 07</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%237ce4d0' d='M32 2 62 32 32 62 2 32zm0 9L11 32l21 21 21-21z'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -48,8 +49,13 @@
     <div class="scan-label" id="scan-label">UNKNOWN TERRAIN</div>
 
     <div class="bottom-left"><span class="coords">41° 24' 12.2" N &nbsp; 02° 10' 26.5" E</span><span class="coord-divider"></span><span class="elevation">ELEV <b>1,284 M</b></span></div>
-    <div class="bottom-center"><div class="move-help"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> MOVE</span><i></i><span><kbd>SHIFT</kbd> SPRINT</span><i></i><span><kbd>CLICK</kbd> MINE / INTERACT</span></div></div>
     <div class="bottom-right"><span class="comms-dot"></span> UPLINK <b>STABLE</b></div>
+
+    <div class="mobile-controls" aria-label="Touch controls">
+      <div class="joystick" id="joystick" aria-label="Move joystick"><div class="joy-ring"></div><div class="joy-knob" id="joy-knob"></div><span class="joy-caption">MOVE</span></div>
+      <div class="touch-actions"><button class="touch-action mine-action" id="touch-mine"><span>＋</span><small>HARVEST</small></button><button class="touch-action build-action" id="touch-build"><span>⌂</span><small>BUILD</small></button></div>
+      <div class="look-caption">DRAG TO LOOK</div>
+    </div>
 
     <section class="build-dock" id="build-dock" aria-label="Build menu">
       <div class="dock-intro"><span class="dock-icon">⌂</span><div><b>OUTPOST CONSTRUCTION</b><small>Choose a module to deploy</small></div><button id="close-dock" aria-label="Close build menu">×</button></div>
@@ -68,7 +74,7 @@
         <button class="modal-close" id="modal-close">×</button>
         <div class="modal-mark">F</div><div class="modal-kicker">FIELD GUIDE / 01</div><h2>Welcome to the frontier.</h2>
         <p>You are the first boots on Kepler-186f. The mission is simple: gather what you need, build what you can, and make this world a little less hostile.</p>
-        <div class="guide-grid"><div><b>01 — EXPLORE</b><small>Walk the terrain. Click glowing mineral deposits to harvest ferrite and water ice.</small></div><div><b>02 — BUILD</b><small>Open construction with <kbd>B</kbd>. Deploy a miner to earn resources automatically.</small></div><div><b>03 — EXPAND</b><small>Keep your power positive. More modules and new worlds are on the horizon.</small></div></div>
+        <div class="guide-grid"><div><b>01 — EXPLORE</b><small>Use the left stick to walk and drag across the world to look around.</small></div><div><b>02 — HARVEST & BUILD</b><small>Center a glowing mineral deposit, tap HARVEST, then tap BUILD to deploy a miner.</small></div><div><b>03 — EXPAND</b><small>Keep your power positive. More modules and new worlds are on the horizon.</small></div></div>
         <button class="primary-btn" id="begin-btn">BEGIN EXPEDITION <span>→</span></button><small class="save-note">Progress saves automatically on this device.</small>
       </section>
     </div>
