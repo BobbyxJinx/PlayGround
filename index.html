@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07141b" />
+  <title>Frontier — Outpost 07</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="world" aria-label="First person view of the frontier outpost"></canvas>
+    <div class="scene-vignette"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Frontier home"><span class="brand-mark">F</span><span>FRONTIER<span class="brand-sub">EXPLORATION INITIATIVE</span></span></a>
+      <div class="location"><span class="live-dot"></span><span>KEPLER-186F</span><i>/</i><b>OUTPOST 07</b></div>
+      <div class="top-actions"><span class="cycle"><span class="sun-icon">◒</span> SOL 04 <i>·</i> 14:32</span><button class="icon-btn" id="sound-toggle" aria-label="Toggle ambient sound">♫</button><button class="icon-btn" id="help-toggle" aria-label="How to play">?</button></div>
+    </header>
+
+    <section class="hud-left">
+      <div class="panel resource-panel">
+        <div class="panel-heading"><span>OUTPOST INVENTORY</span><span class="sync"><i></i> SYNCED</span></div>
+        <div class="resource-row"><span class="resource-symbol ore">⬡</span><span class="resource-name">Ferrite</span><b id="ferrite">120</b><small>kg</small></div>
+        <div class="resource-row"><span class="resource-symbol ice">◇</span><span class="resource-name">Water ice</span><b id="ice">48</b><small>L</small></div>
+        <div class="resource-row"><span class="resource-symbol energy">ϟ</span><span class="resource-name">Power</span><b id="power">86</b><small>kWh</small></div>
+        <div class="resource-divider"></div>
+        <div class="income-line"><span>PASSIVE EXTRACTION</span><b><span id="income">+0</span> <small>kg / min</small></b></div>
+      </div>
+      <div class="panel objective-panel">
+        <div class="objective-kicker"><span class="tiny-star">✦</span> CURRENT DIRECTIVE</div>
+        <h2>Make this place<br>livable.</h2>
+        <p>Build your first automated miner and turn this outpost into a foothold on Kepler-186f.</p>
+        <div class="objective-progress"><span id="objective-fill"></span></div>
+        <div class="objective-foot"><span id="objective-text">0 / 1 structures online</span><span>01</span></div>
+      </div>
+      <button class="journal-btn" id="journal-toggle"><span>▤</span> FIELD JOURNAL <kbd>J</kbd></button>
+    </section>
+
+    <section class="hud-right">
+      <div class="panel status-panel"><div class="panel-heading">SUIT STATUS <span class="status-ok">NOMINAL</span></div><div class="suit-line"><span>O₂</span><div class="meter"><i style="width:84%"></i></div><b>84%</b></div><div class="suit-line"><span>HULL</span><div class="meter hull"><i style="width:100%"></i></div><b>100%</b></div><div class="weather"><span>◉</span><div><b>−42°C</b><small>THIN ATMOSPHERE</small></div><em>↗ 4 m/s</em></div></div>
+      <div class="interaction-hint" id="interaction-hint"><span class="hint-key">E</span><span>INTERACT</span></div>
+    </section>
+
+    <div class="center-reticle"><span></span><i></i></div>
+    <div class="scan-label" id="scan-label">UNKNOWN TERRAIN</div>
+
+    <div class="bottom-left"><span class="coords">41° 24' 12.2" N &nbsp; 02° 10' 26.5" E</span><span class="coord-divider"></span><span class="elevation">ELEV <b>1,284 M</b></span></div>
+    <div class="bottom-center"><div class="move-help"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> MOVE</span><i></i><span><kbd>SHIFT</kbd> SPRINT</span><i></i><span><kbd>CLICK</kbd> MINE / INTERACT</span></div></div>
+    <div class="bottom-right"><span class="comms-dot"></span> UPLINK <b>STABLE</b></div>
+
+    <section class="build-dock" id="build-dock" aria-label="Build menu">
+      <div class="dock-intro"><span class="dock-icon">⌂</span><div><b>OUTPOST CONSTRUCTION</b><small>Choose a module to deploy</small></div><button id="close-dock" aria-label="Close build menu">×</button></div>
+      <div class="build-options">
+        <button class="build-card" data-build="miner"><span class="build-glyph">⛭</span><span class="build-info"><b>ROCKHOUND MINER</b><small>Automated ferrite extraction</small></span><span class="build-cost"><b>80 ⬡</b><small>30 ϟ</small></span><span class="deploy">DEPLOY ↗</span></button>
+        <button class="build-card" data-build="solar"><span class="build-glyph solar-glyph">☼</span><span class="build-info"><b>SOLAR ARRAY</b><small>Generate reserve power</small></span><span class="build-cost"><b>60 ⬡</b><small>—</small></span><span class="deploy">DEPLOY ↗</span></button>
+        <button class="build-card" data-build="habitat"><span class="build-glyph hab-glyph">⌂</span><span class="build-info"><b>HABITAT POD</b><small>Expand crew capacity</small></span><span class="build-cost"><b>100 ⬡</b><small>20 ◇</small></span><span class="deploy">DEPLOY ↗</span></button>
+      </div>
+      <div class="dock-note"><span>ⓘ</span> Deploy modules within the marked perimeter. Automated systems continue while you explore.</div>
+    </section>
+
+    <section class="toast" id="toast"><span>✦</span><b>OUTPOST UPDATED</b><small></small></section>
+
+    <div class="modal-backdrop" id="modal-backdrop">
+      <section class="modal" id="modal">
+        <button class="modal-close" id="modal-close">×</button>
+        <div class="modal-mark">F</div><div class="modal-kicker">FIELD GUIDE / 01</div><h2>Welcome to the frontier.</h2>
+        <p>You are the first boots on Kepler-186f. The mission is simple: gather what you need, build what you can, and make this world a little less hostile.</p>
+        <div class="guide-grid"><div><b>01 — EXPLORE</b><small>Walk the terrain. Click glowing mineral deposits to harvest ferrite and water ice.</small></div><div><b>02 — BUILD</b><small>Open construction with <kbd>B</kbd>. Deploy a miner to earn resources automatically.</small></div><div><b>03 — EXPAND</b><small>Keep your power positive. More modules and new worlds are on the horizon.</small></div></div>
+        <button class="primary-btn" id="begin-btn">BEGIN EXPEDITION <span>→</span></button><small class="save-note">Progress saves automatically on this device.</small>
+      </section>
+    </div>
+    <div class="notification" id="notification"></div>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
